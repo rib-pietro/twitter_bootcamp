@@ -1,1 +1,19 @@
 <h1>Estamos na home</h1>
+
+<% if user_signed_in? %>
+	<h2>Lista de tweets</h2>
+
+	<%= form_for @tweet do |f| %>
+		<%= f.text_field :content %> <!-- define um campo de texto cujo conteúdo estará relacionado ao campo content de @tweet -->
+		<%= f.submit %> <!-- define um botão de envio do formulário para criar um novo tweet -->
+	<% end %>
+	<ul>
+		<% current_user.tweets.each do |tweet| %>
+		<li><%= tweet.content %></li>
+		<% end %>	
+	</ul>
+	
+	<%= link_to 'Sair', destroy_user_session_path, method: :delete %>
+<% else %>
+	<%= link_to 'Clique aqui para logar', new_user_session_path %>
+<% end %>
