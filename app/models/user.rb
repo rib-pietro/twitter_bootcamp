@@ -14,11 +14,23 @@ class User < ApplicationRecord
 
   has_many :tweets
 
-  def follow(id_following)
-  	@following = User.find(id_following)
-  	@rel = Relationship.new
-  	@rel.follower = self
-  	@rel.followed = @following
+  def following?(other_user)
+  	following.include? other_user
+  end
+
+  def follow!(other_user)
+  	# active_relationships.create(followed: other_user)
+  	following << other_user
+  end
+
+  def unfollow!(other_user)
+  	following.destroy(other_user)
+  end
+
+  def feed
+  	users_ids = following.pluck(:id)
+  	users_ids << self.id
+  	Tweet.where(user_id: users_ids).order(created_at: :desc)
   end
 
 end

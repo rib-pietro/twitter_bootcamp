@@ -8,7 +8,7 @@
 		<%= f.submit %> <!-- define um botão de envio do formulário para criar um novo tweet -->
 	<% end %>
 	<ul>
-		<% current_user.tweets.each do |tweet| %>
+		<% current_user.feed.each do |tweet| %>
 		<li><%= tweet.content %></li>
 		<% end %>	
 	</ul>

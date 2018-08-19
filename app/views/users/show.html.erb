@@ -5,9 +5,11 @@
 <h3><%= @user.followers.count %> seguidores</h3>
 <h3><%= @user.following.count %> seguindo</h3>
 
-<%= @user.id %>
-
-<%= link_to 'Seguir', current_user.follow(@user.id) %>
+<% if current_user.following? @user %>
+	<%= link_to 'Deixar de seguir', relationship_path(@user), method: :delete %>
+<% else %>
+	<%= link_to 'Seguir', relationships_path(id: @user.id), method: :post %>
+<% end%>
 
 <% if @user.tweets.empty? %>
 	<p>Usuário ainda não tem tweets</p>
