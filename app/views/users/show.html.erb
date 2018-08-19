@@ -2,6 +2,13 @@
 
 <h2>Tweets (<%= @user.tweets.count %>)</h2>
 
+<h3><%= @user.followers.count %> seguidores</h3>
+<h3><%= @user.following.count %> seguindo</h3>
+
+<%= @user.id %>
+
+<%= link_to 'Seguir', current_user.follow(@user.id) %>
+
 <% if @user.tweets.empty? %>
 	<p>Usuário ainda não tem tweets</p>
 <% else %>
